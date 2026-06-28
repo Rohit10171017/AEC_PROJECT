@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import AdminDashboard from "./pages/AdminDashboard";
 import "./App.css";
 
-import API from "./services/api";
 import { Toaster } from "react-hot-toast";
 
 import Login from "./pages/Login";
