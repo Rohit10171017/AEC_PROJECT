@@ -8,7 +8,16 @@ dotenv.config();
 const app = express(); // ✅ FIRST create app
 
 // Middleware
-app.use(cors());
+
+app.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://communityhub3044.netlify.app",
+    ],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Routes
