@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import API from "../services/api";
 import toast from "react-hot-toast";
 
@@ -31,23 +31,23 @@ function Home() {
 
   const [layout, setLayout] = useState("feed");
 
-  const [userLocation, setUserLocation] = useState("");
+
 
   const [searchMode, setSearchMode] = useState("posts");
 
-  useEffect(() => {
-    fetchPosts();
-  }, [type]);
+ const fetchPosts = useCallback(async () => {
+  try {
+    const res = await API.get(`/posts?type=${type}`);
+    setPosts(res.data);
+  } catch (err) {
+    console.log(err);
+  }
+}, [type]);
 
-  const fetchPosts = async () => {
-    try {
-      const res = await API.get(`/posts?type=${type}`);
-
-      setPosts(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+useEffect(() => {
+  fetchPosts();
+}, [fetchPosts]);
+ 
 
   /* DELETE */
   const handleDelete = async (id) => {

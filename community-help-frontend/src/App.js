@@ -24,18 +24,13 @@ function App() {
   /* CURRENT USER */
   const user = JSON.parse(localStorage.getItem("user"));
 
-  const [notifications, setNotifications] = useState([]);
 
-  const [showNotifications, setShowNotifications] = useState(false);
 
   /* APPLY THEME */
-  useEffect(() => {
-    document.body.className = theme;
-    if (user) {
-      fetchNotifications();
-    }
-    localStorage.setItem("theme", theme);
-  }, [theme]);
+useEffect(() => {
+  document.body.className = theme;
+  localStorage.setItem("theme", theme);
+}, [theme]);
 
   /* LOGOUT */
   const logout = () => {
@@ -46,25 +41,7 @@ function App() {
     window.location.reload();
   };
 
-  const fetchNotifications = async () => {
-    try {
-      const token = localStorage.getItem("token");
 
-      const res = await API.get(
-        "/notifications",
-
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      );
-
-      setNotifications(res.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <div className="app">
